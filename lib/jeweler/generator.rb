@@ -51,7 +51,7 @@ class Jeweler
                   :description, :project_name, :github_username,
                   :repo, :should_create_remote_repo, 
                   :testing_framework, :documentation_framework,
-                  :should_use_cucumber, :should_use_bundler,
+                  :should_use_cucumber, :should_use_bundler, :should_use_github,
                   :should_setup_rubyforge, :should_use_reek, :should_use_roodi,
                   :development_dependencies,
                   :options,
@@ -101,6 +101,8 @@ class Jeweler
       self.should_use_roodi       = options[:use_roodi]
       self.should_setup_rubyforge = options[:rubyforge]
       self.should_use_bundler     = options[:use_bundler]
+      self.should_use_github      = !options[:no_github]
+
 
       development_dependencies << ["cucumber", ">= 0"] if should_use_cucumber
 
@@ -118,8 +120,8 @@ class Jeweler
       
       self.git_remote      = options[:git_remote]
 
-      raise NoGitUserName unless self.user_name
-      raise NoGitUserEmail unless self.user_email
+      raise NoGitUserName unless self.user_name if self.should_use_github
+      raise NoGitUserEmail unless self.user_email if self.should_use_github
 
       extend GithubMixin
     end

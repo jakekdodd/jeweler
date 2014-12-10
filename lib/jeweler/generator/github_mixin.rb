@@ -4,8 +4,8 @@ class Jeweler
       def self.extended(generator)
         generator.github_username           = generator.options[:github_username]
         generator.should_create_remote_repo = generator.options[:create_repo]
-
-        unless generator.github_username
+        
+        if generator.should_use_github && !generator.github_username
           raise NoGitHubUser
         end
       end

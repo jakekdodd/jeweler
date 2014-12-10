@@ -10,6 +10,7 @@ class Jeweler
         self[:testing_framework]       = :shoulda
         self[:documentation_framework] = :rdoc
         self[:use_bundler]             = true
+        self[:no_github]               = false
 
         self[:user_name]       = ENV['GIT_AUTHOR_NAME']  || ENV['GIT_COMMITTER_NAME']  || git_config['user.name']
         self[:user_email]      = ENV['GIT_AUTHOR_EMAIL'] || ENV['GIT_COMMITTER_EMAIL'] || git_config['user.email']
@@ -118,6 +119,10 @@ class Jeweler
 
           o.on('--create-repo', 'create the repository on GitHub') do
             self[:create_repo] = true
+          end
+
+          o.on('--no-github', 'do not use github for the remote repository') do
+            self[:no_github] = true
           end
 
 

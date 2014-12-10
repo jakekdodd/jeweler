@@ -58,6 +58,10 @@ class TestOptions < Test::Unit::TestCase
     should "use bundler" do
       assert @options[:use_bundler]
     end
+
+    should "use github" do 
+      assert !@options[:no_github]
+    end
   end
 
   for_options "--bacon" do
@@ -207,6 +211,12 @@ class TestOptions < Test::Unit::TestCase
   for_options '--no-bundler' do
     should "not use bundler" do
       assert !@options[:use_bundler]
+    end
+  end
+
+  for_options '--no-github' do
+    should "not use github" do
+      assert @options[:no_github]
     end
   end
 

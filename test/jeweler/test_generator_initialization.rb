@@ -147,4 +147,22 @@ class TestGeneratorInitialization < Test::Unit::TestCase
 
   end
 
+  context "without using GitHub" do 
+    setup do
+      stub_git_config
+    end
+
+    should "create a git repo without git user name" do 
+      assert_nothing_raised Jeweler::NoGitUserName do
+        @generator = build_generator(no_github: true, user_name: nil)
+      end
+    end
+
+    should "create a git repo without git user email" do 
+      assert_nothing_raised Jeweler::NoGitUserEmail do
+        @generator = build_generator(no_github: true, user_email: nil)
+      end
+    end
+  end
+
 end
